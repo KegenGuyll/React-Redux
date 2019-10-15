@@ -1,8 +1,9 @@
-import { ADD_ARTICLE } from '../constants/action-types';
+import { ADD_ARTICLE, DATA_LOAD, ERROR_LOAD } from '../constants/action-types';
 
 const initialState = {
   articles: [],
-  remoteArticles: []
+  remoteArticles: [],
+  fetchError: {}
 };
 
 function rootReducer(state = initialState, action) {
@@ -11,10 +12,13 @@ function rootReducer(state = initialState, action) {
       articles: state.articles.concat(action.payload)
     });
   }
-  if (action.type === 'DATA_LOADED') {
+  if (action.type === DATA_LOAD) {
     return Object.assign({}, state, {
       remoteArticles: state.remoteArticles.concat(action.payload)
     });
+  }
+  if (action.type === ERROR_LOAD) {
+    console.log(state);
   }
   return state;
 }
